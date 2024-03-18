@@ -1,0 +1,104 @@
+###Get the service document
+http://localhost:4004/odata/v4/CatalogService/
+
+
+###Get the service metadata document
+http://localhost:4004/odata/v4/CatalogService/$metadata
+
+
+###Get All Employees Data
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet
+
+
+###Count All Employees
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet/$count
+
+
+###Get Single Employees Data by its key - one way
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet/02BD2137-0890-1EEA-A6C2-BB55C198C7FB
+
+### Get Single Employees data by its key - other way
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet(ID=02BD2137-0890-1EEA-A6C2-BB55C198C7FB)
+
+
+
+###Get All Employees Data - pagination
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet?$top=2&$skip=2
+
+
+###Get All Employees Data - filter
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet?$filter=sex eq 'F'
+
+
+###Get All Employees Data- filter with texts
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet?$filter=contains(nameFirst,'Su')
+
+
+###Get All Employees Data
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet?$top=2&$skip=2&$select=ID,nameFirst,email
+
+Anubhav 14-03-2024 11:42 • 
+###Insert Employee data
+POST http://localhost:4004/odata/v4/CatalogService/EmployeeSet
+Content-Type: application/json
+
+
+{
+"nameFirst": "Shilpa",
+"nameMiddle": "",
+"nameLast": "Krishna",
+"nameInitials": null,
+"sex": "F",
+"language": "E",
+"phoneNumber": null,
+"email": "shilpa@gmail.com",
+"loginName": "Shilpa",
+"Currency_code": "USD",
+"salaryAmount": 85962,
+"accountNumber": "8444455465",
+"bankId": "121000358",
+"bankName": "My Bank of San Francisco"
+}
+
+###Get the created new record -
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet/abe1b678-331a-4468-8be2-9ceb1d06ea4d
+
+###Update the salary
+
+PATCH http://localhost:4004/odata/v4/CatalogService/EmployeeSet/f1999152-3071-4d58-a0db-2dfe07ec2b16
+Content-Type: application/json
+
+{
+    "salaryAmount": 1000000,
+    "Currency_code": "INR"
+}
+
+###Delete the record
+DELETE http://localhost:4004/odata/v4/CatalogService/EmployeeSet(ID=b6a26b60-6d5a-4790-b706-64fbc3c191fc)
+
+
+###Get all POs
+http://localhost:4004/odata/v4/CatalogService/POs
+
+
+###Get single order by key
+http://localhost:4004/odata/v4/CatalogService/POs/74867AD200E41EDBA5D8B0C98DC2E052
+
+
+###How to leverage the association for items - Expand fetches all the header and the items data
+http://localhost:4004/odata/v4/CatalogService/POs/74867AD200E41EDBA5D8B0C98DC2E052?$expand=Items
+
+###How to leverage the association for items - /Items fetches only items data of that particular order
+http://localhost:4004/odata/v4/CatalogService/POs/74867AD200E41EDBA5D8B0C98DC2E052/Items
+
+###Call the action
+POST http://localhost:4004/odata/v4/CatalogService/POs/74867AD200E41EDBA5D8B0C98DC2E052/CatalogService.boost
+Content-Type: application/json
+
+{}
+
+###Calling function
+http://localhost:4004/odata/v4/CatalogService/largestOrder()
+
+###Get all POs V2
+http://localhost:4004/v2/odata/v4/CatalogService/POs
